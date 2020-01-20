@@ -4,6 +4,7 @@ import React from "react"
 import { Styled } from "theme-ui"
 import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Location } from "@reach/router"
 import {
   faLinkedin,
   faTwitterSquare,
@@ -44,11 +45,20 @@ export default () => {
         find more about myself, and read about my thoughts, learnings, and
         experiences through blog posts.
       </Styled.p>
-      <div sx={{ display: "flex", flexDirection: "row" }}>
-        <HeaderButton title="Blog 📝" path="/" />
-        <HeaderButton title="About me 🌍" path="/about" />
-        <HeaderButton title="Resources 📚" path="/resources" />
-      </div>
+      <Location>
+        {({ location }) => {
+          const isDocs = location.pathname.startsWith("/docs")
+          const isBlog = location.pathname.startsWith("/blog")
+          const isFaq = location.pathname.startsWith("/faq")
+          return (
+            <div sx={{ display: "flex", flexDirection: "row" }}>
+              <HeaderButton title="Blog 📝" path="/" />
+              <HeaderButton title="About me 🌍" path="/about" />
+              <HeaderButton title="Resources 📚" path="/resources" />
+            </div>
+          )
+        }}
+      </Location>
     </header>
   )
 }
