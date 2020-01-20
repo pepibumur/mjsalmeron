@@ -7,6 +7,10 @@ import { graphql, useStaticQuery } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Styled } from "theme-ui"
 
-const IndexPage = () => <Layout>Hola</Layout>
+const IndexPage = () => (
+  <Layout>
+    <Styled.h1>Blog</Styled.h1>
+  </Layout>
+)
 
 export default IndexPage

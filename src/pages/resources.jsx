@@ -4,13 +4,13 @@ import React from "react"
 import Layout from "../components/layout"
 import { Link } from "gatsby"
 import { graphql, useStaticQuery } from "gatsby"
-import { Styled } from "theme-ui"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import { Styled } from "theme-ui"
 
-const AboutPage = () => {
+const ResourcesPage = () => {
   const { file } = useStaticQuery(graphql`
     {
-      file(relativePath: { eq: "about.mdx" }) {
+      file(relativePath: { eq: "resources.mdx" }) {
         childMdx {
           body
         }
@@ -24,4 +24,4 @@ const AboutPage = () => {
   )
 }
 
-export default AboutPage
+export default ResourcesPage

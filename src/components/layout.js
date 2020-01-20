@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import React from "react"
 import { Global } from "@emotion/core"
 import { Styled } from "theme-ui"
@@ -39,7 +41,7 @@ const Layout = ({ children }) => {
           }}
         >
           <Header />
-          <main>{children}</main>
+          <main sx={{ py: 4 }}>{children}</main>
           <footer></footer>
         </div>
       </Styled.root>

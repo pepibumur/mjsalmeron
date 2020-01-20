@@ -12,7 +12,10 @@ import {
 
 const HeaderButton = ({ title, path }) => {
   return (
-    <Link sx={{ fontSize: 3, mr: 4, textDecoration: "none" }} to={path}>
+    <Link
+      sx={{ fontSize: 3, mr: 4, textDecoration: "none", fontWeight: "bold" }}
+      to={path}
+    >
       {title}
     </Link>
   )
@@ -21,17 +24,15 @@ const HeaderButton = ({ title, path }) => {
 export default () => {
   return (
     <header>
-      <Styled.h1 sx={{ mb: 0 }}>María José Salmerón</Styled.h1>
+      <Styled.h1 sx={{ mb: 0 }}>
+        <span sx={{ color: "secondary" }}>María José</span> Salmerón
+      </Styled.h1>
       <div sx={{ mb: 3 }}>
         <FontAwesomeIcon sx={{}} icon={faLinkedin} size="lg" />
         <FontAwesomeIcon sx={{ ml: 2 }} icon={faInstagram} size="lg" />
         <FontAwesomeIcon sx={{ ml: 2 }} icon={faTwitterSquare} size="lg" />
       </div>
-      <div sx={{ display: "flex", flexDirection: "row" }}>
-        <HeaderButton title="Blog 📝" path="/" />
-        <HeaderButton title="About me 🌍" path="/" />
-        <HeaderButton title="Resources 📚" path="/" />
-      </div>
+
       <Styled.p>
         👋 I'm a linguist based in Berlin where I work as a curriculum developer
         at{" "}
@@ -43,6 +44,11 @@ export default () => {
         find more about myself, and read about my thoughts, learnings, and
         experiences through blog posts.
       </Styled.p>
+      <div sx={{ display: "flex", flexDirection: "row" }}>
+        <HeaderButton title="Blog 📝" path="/" />
+        <HeaderButton title="About me 🌍" path="/about" />
+        <HeaderButton title="Resources 📚" path="/resources" />
+      </div>
     </header>
   )
 }
