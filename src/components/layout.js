@@ -4,6 +4,7 @@ import React from "react"
 import { Global } from "@emotion/core"
 import { Styled } from "theme-ui"
 import Header from "./header"
+import Footer from "./footer"
 import Meta from "../components/meta"
 
 const Layout = ({ children }) => {
@@ -42,7 +43,7 @@ const Layout = ({ children }) => {
         >
           <Header />
           <main sx={{ py: 4 }}>{children}</main>
-          <footer></footer>
+          <Footer />
         </div>
       </Styled.root>
     </>

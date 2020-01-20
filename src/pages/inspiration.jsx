@@ -6,11 +6,12 @@ import { Link } from "gatsby"
 import { graphql, useStaticQuery } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Styled } from "theme-ui"
+import Meta from "../components/meta"
 
 const ResourcesPage = () => {
   const { file } = useStaticQuery(graphql`
     {
-      file(relativePath: { eq: "resources.mdx" }) {
+      file(relativePath: { eq: "inspiration.mdx" }) {
         childMdx {
           body
         }
@@ -19,6 +20,12 @@ const ResourcesPage = () => {
   `)
   return (
     <Layout>
+      <Meta
+        description={
+          "This page is my little corner where I collect resources that inspire my work."
+        }
+        title="Inspiration"
+      />
       <MDXRenderer>{file.childMdx.body}</MDXRenderer>
     </Layout>
   )

@@ -11,10 +11,19 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons"
 
-const HeaderButton = ({ title, path }) => {
+const HeaderButton = ({ title, path, highlighted }) => {
   return (
     <Link
-      sx={{ fontSize: 3, mr: 4, textDecoration: "none", fontWeight: "bold" }}
+      sx={{
+        fontSize: 3,
+        mr: 4,
+        textDecoration: "none",
+        fontWeight: "bold",
+        color: highlighted ? "primary" : "text",
+        "&:hover": {
+          color: "primary",
+        },
+      }}
       to={path}
     >
       {title}
@@ -47,14 +56,22 @@ export default () => {
       </Styled.p>
       <Location>
         {({ location }) => {
-          const isDocs = location.pathname.startsWith("/docs")
-          const isBlog = location.pathname.startsWith("/blog")
-          const isFaq = location.pathname.startsWith("/faq")
+          const isAbout = location.pathname.startsWith("/about")
+          const isInspiration = location.pathname.startsWith("/inspiration")
+          const isBlog = !isAbout && !isInspiration
           return (
             <div sx={{ display: "flex", flexDirection: "row" }}>
-              <HeaderButton title="Blog 📝" path="/" />
-              <HeaderButton title="About me 🌍" path="/about" />
-              <HeaderButton title="Resources 📚" path="/resources" />
+              <HeaderButton title="Blog 📝" path="/" highlighted={isBlog} />
+              <HeaderButton
+                title="About me 🌍"
+                path="/about"
+                highlighted={isAbout}
+              />
+              <HeaderButton
+                title="Inspiration 💡"
+                path="/inspiration"
+                highlighted={isInspiration}
+              />
             </div>
           )
         }}

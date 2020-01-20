@@ -6,9 +6,11 @@ import { Link } from "gatsby"
 import { graphql, useStaticQuery } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Styled } from "theme-ui"
+import Meta from "../components/meta"
 
 const IndexPage = () => (
   <Layout>
+    <Meta title="Blog" />
     <Styled.h1>Blog</Styled.h1>
   </Layout>
 )

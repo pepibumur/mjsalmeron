@@ -6,6 +6,7 @@ import { Link } from "gatsby"
 import { graphql, useStaticQuery } from "gatsby"
 import { Styled } from "theme-ui"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import Meta from "../components/meta"
 
 const AboutPage = () => {
   const { file } = useStaticQuery(graphql`
@@ -19,6 +20,7 @@ const AboutPage = () => {
   `)
   return (
     <Layout>
+      <Meta title="About me" />
       <MDXRenderer>{file.childMdx.body}</MDXRenderer>
     </Layout>
   )
