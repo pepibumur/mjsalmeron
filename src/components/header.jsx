@@ -5,11 +5,8 @@ import { Styled } from "theme-ui"
 import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Location } from "@reach/router"
-import {
-  faLinkedin,
-  faTwitterSquare,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons"
+import { faLinkedin, faInstagram } from "@fortawesome/free-brands-svg-icons"
+import Mailto from "react-protected-mailto"
 
 const HeaderButton = ({ title, path, highlighted }) => {
   return (
@@ -38,9 +35,20 @@ export default () => {
         <span sx={{ color: "secondary" }}>María José</span> Salmerón
       </Styled.h1>
       <div sx={{ mb: 3 }}>
-        <FontAwesomeIcon sx={{}} icon={faLinkedin} size="lg" />
-        <FontAwesomeIcon sx={{ ml: 2 }} icon={faInstagram} size="lg" />
-        <FontAwesomeIcon sx={{ ml: 2 }} icon={faTwitterSquare} size="lg" />
+        <a
+          href="https://www.linkedin.com/in/mar%C3%ADa-josé-salmerón-ibáñez-1262ba9b/"
+          target="__blank"
+        >
+          <FontAwesomeIcon sx={{}} icon={faLinkedin} size="lg" />
+        </a>
+        <a href="https://www.instagram.com/mjsesaalm/" target="__blank">
+          <FontAwesomeIcon sx={{ ml: 2 }} icon={faInstagram} size="lg" />
+        </a>
+        <Mailto
+          sx={{ ml: 3 }}
+          email="mjsesalm@gmail.com"
+          headers={{ subject: "Hi María José 👋" }}
+        />
       </div>
 
       <Styled.p>

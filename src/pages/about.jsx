@@ -7,6 +7,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import { Styled } from "theme-ui"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Meta from "../components/meta"
+import profilePicture from "../images/profile-pic.jpg"
 
 const AboutPage = () => {
   const { file } = useStaticQuery(graphql`
@@ -21,6 +22,10 @@ const AboutPage = () => {
   return (
     <Layout>
       <Meta title="About me" />
+      <img
+        src={profilePicture}
+        sx={{ height: 200, width: 200, borderRadius: 100 }}
+      />
       <MDXRenderer>{file.childMdx.body}</MDXRenderer>
     </Layout>
   )
