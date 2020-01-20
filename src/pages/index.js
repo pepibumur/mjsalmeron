@@ -1,20 +1,20 @@
 import React from "react"
-import { Link } from "gatsby"
-
 import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import { Link } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
+import { MDXRenderer } from "gatsby-plugin-mdx"
+import { Styled } from "theme-ui"
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
+    <Styled.h1>María José Salmerón</Styled.h1>
+    <Styled.p>
+      👋 I'm a linguist based in Berlin where I work as a curriculum developer
+      at Chatterbug. Languages are my passion and I'm currently exploring their
+      intersection with technology. This is my personal website where you can
+      find more about myself, read about my thoughts, learnings, and experiences
+      through blog posts.
+    </Styled.p>
   </Layout>
 )
 

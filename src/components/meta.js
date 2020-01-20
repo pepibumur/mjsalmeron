@@ -1,16 +1,8 @@
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
-import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title }) {
+const Meta = ({ description, lang, meta, keywords, title }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -18,7 +10,6 @@ function SEO({ description, lang, meta, title }) {
           siteMetadata {
             title
             description
-            author
           }
         }
       }
@@ -26,14 +17,16 @@ function SEO({ description, lang, meta, title }) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  const titleTemplate = title ? `%s | ${site.siteMetadata.title}` : `%s`
+  const _title = title ? title : site.siteMetadata.title
 
   return (
     <Helmet
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={_title}
+      titleTemplate={titleTemplate}
       meta={[
         {
           name: `description`,
@@ -41,7 +34,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: `og:title`,
-          content: title,
+          content: _title,
         },
         {
           property: `og:description`,
@@ -56,33 +49,42 @@ function SEO({ description, lang, meta, title }) {
           content: `summary`,
         },
         {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
-        },
-        {
           name: `twitter:title`,
-          content: title,
+          content: _title,
         },
         {
           name: `twitter:description`,
           content: metaDescription,
         },
-      ].concat(meta)}
+      ]
+        .concat(
+          keywords.length > 0
+            ? {
+                name: `keywords`,
+                content: keywords.join(`, `),
+              }
+            : []
+        )
+        .concat(meta)}
     />
   )
 }
 
-SEO.defaultProps = {
+Meta.defaultProps = {
   lang: `en`,
   meta: [],
-  description: ``,
+  keywords: [
+    `maria jose salmeron`,
+    `linguistics`,
+    `chatterbug`,
+    `german`,
+    `english`,
+    `language learning`,
+    `languages`,
+    `curriculum`,
+    `language curriculum`,
+    `elearning`,
+  ],
 }
 
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
-}
-
-export default SEO
+export default Meta
