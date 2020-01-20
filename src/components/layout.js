@@ -1,6 +1,8 @@
 import React from "react"
 import { Global } from "@emotion/core"
 import { Styled } from "theme-ui"
+import Header from "./header"
+import Meta from "../components/meta"
 
 const Layout = ({ children }) => {
   return (
@@ -20,10 +22,14 @@ const Layout = ({ children }) => {
             "h3 a": headingStyle,
             "h4 a": headingStyle,
             "h5 a": headingStyle,
+            a: {
+              color: theme.colors.primary,
+            },
           }
         }}
       />
       <Styled.root>
+        <Meta />
         <div
           style={{
             margin: `0 auto`,
@@ -32,6 +38,7 @@ const Layout = ({ children }) => {
             paddingTop: 0,
           }}
         >
+          <Header />
           <main>{children}</main>
           <footer></footer>
         </div>
