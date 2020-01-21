@@ -4,6 +4,7 @@ module.exports = {
   siteMetadata: {
     title: `María José Salmerón`,
     description: `👋 I'm a linguist based in Berlin where I work as a curriculum developer at Chatterbug. Languages are my passion and I'm currently exploring their intersection with technology. This is my personal website where you can find more about myself, and read about my thoughts, learnings, and experiences through blog posts.`,
+    siteUrl: `https://mjsalmeron.com`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -11,6 +12,7 @@ module.exports = {
     `gatsby-plugin-theme-ui`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-sitemap`
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
