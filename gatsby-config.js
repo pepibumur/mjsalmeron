@@ -45,6 +45,33 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
           },
+          {
+            resolve: `gatsby-remark-social-cards`,
+            options: {
+              type: "pages",
+              title: {
+                field: "title",
+                font: "DejaVuSansCondensed",
+                color: "white",
+                size: 48,
+                style: "bold",
+                x: null,
+                y: null,
+              },
+              meta: {
+                parts: ["María José Salmerón"],
+                font: "DejaVuSansCondensed",
+                color: "white",
+                size: 24,
+                style: "normal",
+                x: null,
+                y: null,
+              },
+              background: "#CC4C33",
+              xMargin: 24,
+              yMargin: 24,
+            },
+          },
         ],
         remarkPlugins: [remarkSlug],
       },

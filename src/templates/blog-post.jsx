@@ -8,6 +8,7 @@ import { Styled } from "theme-ui"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Meta from "../components/meta"
 import moment from "moment"
+import Helmet from "react-helmet"
 
 const Footer = ({ pageContext }) => {
   const prev = pageContext.prev
@@ -52,12 +53,29 @@ const Footer = ({ pageContext }) => {
   )
 }
 
-const BlogPostPage = ({ data: { mdx: post }, pageContext }) => {
+const BlogPostPage = ({
+  data: {
+    mdx: post,
+    site: { siteMetadata },
+  },
+  pageContext,
+}) => {
   const publishedDateString = moment(post.fields.date).format("MMMM Do YYYY")
 
   return (
     <Layout>
-      <Meta title="Post" />
+      <Meta
+        title={post.frontmatter.title}
+        keywords={post.frontmatter.tags}
+        description={post.excerpt}
+      />
+      <Helmet>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image"
+          content={`${siteMetadata.siteUrl}${post.fields.slug}twitter-card.jpg`}
+        />
+      </Helmet>
       <article>
         <header>
           <Styled.h1>{post.frontmatter.title}</Styled.h1>
@@ -86,6 +104,12 @@ export default BlogPostPage
 
 export const query = graphql`
   query($slug: String!) {
+    site {
+      siteMetadata {
+        title
+        siteUrl
+      }
+    }
     mdx(fields: { slug: { eq: $slug } }) {
       fields {
         slug
