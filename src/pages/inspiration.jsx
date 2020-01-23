@@ -18,6 +18,7 @@ const ResourcesPage = () => {
       file(relativePath: { eq: "inspiration.mdx" }) {
         childMdx {
           body
+          excerpt
         }
       }
       site {
@@ -30,12 +31,7 @@ const ResourcesPage = () => {
   `)
   return (
     <Layout>
-      <Meta
-        description={
-          "This page is my little corner where I collect resources that inspire my work."
-        }
-        title="Inspiration"
-      />
+      <Meta description={file.childMdx.excerpt} title="Inspiration" />
       <Helmet>
         <meta name="twitter:card" content="summary_large_image" />
         <meta

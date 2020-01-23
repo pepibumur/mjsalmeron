@@ -19,6 +19,7 @@ const AboutPage = () => {
       file(relativePath: { eq: "about.mdx" }) {
         childMdx {
           body
+          excerpt
         }
       }
       site {
@@ -31,7 +32,7 @@ const AboutPage = () => {
   `)
   return (
     <Layout>
-      <Meta title="About me" />
+      <Meta title="About me" description={file.childMdx.excerpt} />
       <Helmet>
         <meta name="twitter:card" content="summary_large_image" />
         <meta
