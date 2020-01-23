@@ -8,13 +8,23 @@ import { Styled } from "theme-ui"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Meta from "../components/meta"
 import profilePicture from "../images/profile-pic.jpg"
+import Helmet from "react-helmet"
 
 const AboutPage = () => {
-  const { file } = useStaticQuery(graphql`
+  const {
+    file,
+    site: { siteMetadata },
+  } = useStaticQuery(graphql`
     {
       file(relativePath: { eq: "about.mdx" }) {
         childMdx {
           body
+        }
+      }
+      site {
+        siteMetadata {
+          title
+          siteUrl
         }
       }
     }
@@ -22,6 +32,13 @@ const AboutPage = () => {
   return (
     <Layout>
       <Meta title="About me" />
+      <Helmet>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image"
+          content={`${siteMetadata.siteUrl}/about/twitter-card.jpg`}
+        />
+      </Helmet>
       <img
         src={profilePicture}
         sx={{ height: 200, width: 200, borderRadius: 100 }}

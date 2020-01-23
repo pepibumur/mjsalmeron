@@ -7,13 +7,23 @@ import { graphql, useStaticQuery } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Styled } from "theme-ui"
 import Meta from "../components/meta"
+import Helmet from "react-helmet"
 
 const ResourcesPage = () => {
-  const { file } = useStaticQuery(graphql`
+  const {
+    file,
+    site: { siteMetadata },
+  } = useStaticQuery(graphql`
     {
       file(relativePath: { eq: "inspiration.mdx" }) {
         childMdx {
           body
+        }
+      }
+      site {
+        siteMetadata {
+          title
+          siteUrl
         }
       }
     }
@@ -26,6 +36,13 @@ const ResourcesPage = () => {
         }
         title="Inspiration"
       />
+      <Helmet>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:image"
+          content={`${siteMetadata.siteUrl}/inspiration/twitter-card.jpg`}
+        />
+      </Helmet>
       <MDXRenderer>{file.childMdx.body}</MDXRenderer>
     </Layout>
   )
