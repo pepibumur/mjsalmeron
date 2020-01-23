@@ -29,6 +29,7 @@ const HeaderButton = ({ title, path, highlighted }) => {
 }
 
 export default () => {
+  const iconSize = 20
   return (
     <header>
       <Styled.h1 sx={{ mb: 0 }}>
@@ -39,10 +40,23 @@ export default () => {
           href="https://www.linkedin.com/in/mar%C3%ADa-josé-salmerón-ibáñez-1262ba9b/"
           target="__blank"
         >
-          <FontAwesomeIcon sx={{}} icon={faLinkedin} size="lg" />
+          <FontAwesomeIcon
+            sx={{ width: iconSize, height: iconSize, fontSize: iconSize }}
+            icon={faLinkedin}
+            size="lg"
+          />
         </a>
         <a href="https://www.instagram.com/mjsesaalm/" target="__blank">
-          <FontAwesomeIcon sx={{ ml: 2 }} icon={faInstagram} size="lg" />
+          <FontAwesomeIcon
+            sx={{
+              ml: 2,
+              width: iconSize,
+              height: iconSize,
+              fontSize: iconSize,
+            }}
+            icon={faInstagram}
+            size="lg"
+          />
         </a>
         <Mailto
           sx={{ ml: 3 }}

@@ -28,3 +28,56 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     }
   }
 }
+
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions
+  const createBlogPages = graphql(
+    `
+      {
+        allFile(
+          filter: { base: { eq: "post.mdx" } }
+          sort: { fields: childMdx___fields___date, order: DESC }
+        ) {
+          nodes {
+            childMdx {
+              fields {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `
+  ).then(result => {
+    const posts = result.data.allFile.nodes
+    const postsPerPage = 10
+    const numPages = Math.ceil(posts.length / postsPerPage)
+
+    // Create blog lists
+    Array.from({ length: numPages }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/` : `/blog/${i + 1}`,
+        component: path.resolve("./src/templates/blog-list.jsx"),
+        context: {
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          numPages,
+          currentPage: i + 1,
+        },
+      })
+    })
+
+    // Create blog posts
+    result.data.allFile.nodes.forEach(({ childMdx: post }, index) => {
+      createPage({
+        path: post.fields.slug,
+        component: path.resolve(`./src/templates/blog-post.jsx`),
+        context: {
+          slug: post.fields.slug,
+        },
+      })
+    })
+  })
+
+  return Promise.all([createBlogPages])
+}
