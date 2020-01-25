@@ -76,5 +76,6 @@ module.exports = {
         remarkPlugins: [remarkSlug],
       },
     },
+    `gatsby-plugin-robots-txt`,
   ],
 }
