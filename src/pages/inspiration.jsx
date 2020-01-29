@@ -6,8 +6,7 @@ import { Link } from "gatsby"
 import { graphql, useStaticQuery } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Styled } from "theme-ui"
-import Meta from "../components/meta"
-import Helmet from "react-helmet"
+import { GatsbySeo } from "gatsby-plugin-next-seo"
 
 const ResourcesPage = () => {
   const {
@@ -31,14 +30,12 @@ const ResourcesPage = () => {
   `)
   return (
     <Layout>
-      <Meta description={file.childMdx.excerpt} title="Inspiration" />
-      <Helmet>
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:image"
-          content={`${siteMetadata.siteUrl}/inspiration/twitter-card.jpg`}
-        />
-      </Helmet>
+      <GatsbySeo
+        title="Inspiration"
+        titleTemplate="%s | María José Salmerón"
+        description={file.childMdx.excerpt}
+        image={`${siteMetadata.siteUrl}/inspiration/twitter-card.jpg`}
+      />
       <MDXRenderer>{file.childMdx.body}</MDXRenderer>
     </Layout>
   )

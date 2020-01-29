@@ -6,9 +6,8 @@ import { Link } from "gatsby"
 import { graphql, useStaticQuery } from "gatsby"
 import { Styled } from "theme-ui"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import Meta from "../components/meta"
 import moment from "moment"
-import Helmet from "react-helmet"
+import { GatsbySeo, BlogPostJsonLd } from "gatsby-plugin-next-seo"
 
 const Footer = ({ pageContext }) => {
   const prev = pageContext.prev
@@ -64,26 +63,48 @@ const BlogPostPage = ({
 
   return (
     <Layout>
-      <Meta
+      <GatsbySeo
         title={post.frontmatter.title}
+        titleTemplate="%s | María José Salmerón"
         keywords={post.frontmatter.tags}
         description={post.excerpt}
+        image={`${siteMetadata.siteUrl}${post.fields.slug}twitter-card.jpg`}
+        openGraph={{
+          title: post.frontmatter.title,
+          description: post.excerpt,
+          url: `${siteMetadata}${post.fields.slug}`,
+          type: "article",
+          article: {
+            publishedTime: moment(post.fields.date).format(),
+            authors: [`${siteMetadata}${post.fields.slug}/about`],
+            tags: post.frontmatter.tags,
+          },
+          images: [
+            {
+              url: `${siteMetadata.siteUrl}${post.fields.slug}twitter-card.jpg`,
+              width: 850,
+              height: 650,
+            },
+          ],
+        }}
       />
-      <Helmet>
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:image"
-          content={`${siteMetadata.siteUrl}${post.fields.slug}twitter-card.jpg`}
-        />
-      </Helmet>
+      <BlogPostJsonLd
+        url={`${siteMetadata.siteUrl}${post.fields.slug}`}
+        title={post.frontmatter.title}
+        images={[`${siteMetadata.siteUrl}${post.fields.slug}twitter-card.jpg`]}
+        datePublished={moment(post.fields.date).format()}
+        authorName={siteMetadata.title}
+        description={siteMetadata.description}
+      />
       <article>
         <header>
           <Styled.h1>{post.frontmatter.title}</Styled.h1>
 
           <Styled.div sx={{ fontSize: 2, color: "gray" }}>
             Published on {publishedDateString} {` · `}
-            {post.frontmatter.tags.map(tag => (
+            {post.frontmatter.tags.map((tag, index) => (
               <span
+                key={index}
                 sx={{
                   mr: 2,
                 }}
@@ -108,6 +129,7 @@ export const query = graphql`
       siteMetadata {
         title
         siteUrl
+        description
       }
     }
     mdx(fields: { slug: { eq: $slug } }) {

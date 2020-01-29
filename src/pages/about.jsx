@@ -6,9 +6,8 @@ import { Link } from "gatsby"
 import { graphql, useStaticQuery } from "gatsby"
 import { Styled } from "theme-ui"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import Meta from "../components/meta"
 import profilePicture from "../images/profile-pic.jpg"
-import Helmet from "react-helmet"
+import { GatsbySeo } from "gatsby-plugin-next-seo"
 
 const AboutPage = () => {
   const {
@@ -32,14 +31,31 @@ const AboutPage = () => {
   `)
   return (
     <Layout>
-      <Meta title="About me" description={file.childMdx.excerpt} />
-      <Helmet>
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:image"
-          content={`${siteMetadata.siteUrl}/about/twitter-card.jpg`}
-        />
-      </Helmet>
+      <GatsbySeo
+        title="About me"
+        titleTemplate={`%s | ${siteMetadata.title}`}
+        description={file.childMdx.excerpt}
+        image={`${siteMetadata.siteUrl}/about/twitter-card.jpg`}
+        openGraph={{
+          title: siteMetadata.title,
+          description: file.childMdx.excerpt,
+          url: siteMetadata.siteUrl,
+          type: "profile",
+          profile: {
+            firstName: "María José",
+            lastName: "Salmerón Ibáñez",
+            gender: "female",
+          },
+          images: [
+            {
+              url: profilePicture,
+              width: 850,
+              height: 650,
+              alt: "Profile Photo",
+            },
+          ],
+        }}
+      />
       <img
         src={profilePicture}
         sx={{ height: 200, width: 200, borderRadius: 100 }}

@@ -32,7 +32,6 @@ const Layout = ({ children }) => {
         }}
       />
       <Styled.root>
-        <Meta />
         <div
           style={{
             margin: `0 auto`,
