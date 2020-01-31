@@ -23,6 +23,45 @@ module.exports = {
         path: `${__dirname}/content/`,
       },
     },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [".mdx"],
+        gatsbyRemarkPlugins: [
+          // {
+          //   resolve: `gatsby-remark-social-cards`,
+          //   options: {
+          //     type: "pages",
+          //     title: {
+          //       field: "title",
+          //       font: "DejaVuSansCondensed",
+          //       color: "white",
+          //       size: 48,
+          //       style: "bold",
+          //       x: null,
+          //       y: null,
+          //     },
+          //     meta: {
+          //       parts: ["María José Salmerón"],
+          //       font: "DejaVuSansCondensed",
+          //       color: "white",
+          //       size: 24,
+          //       style: "normal",
+          //       x: null,
+          //       y: null,
+          //     },
+          //     background: "#CC4C33",
+          //     xMargin: 24,
+          //     yMargin: 24,
+          //   },
+          // },
+          {
+            resolve: `gatsby-remark-images`,
+          },
+        ],
+        remarkPlugins: [remarkSlug],
+      },
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-theme-ui`,
@@ -52,44 +91,6 @@ module.exports = {
         theme_color: `hsl(10, 80%, 50%)`,
         display: `minimal-ui`,
         icon: `src/images/favicon.png`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-images`,
-          },
-          {
-            resolve: `gatsby-remark-social-cards`,
-            options: {
-              type: "pages",
-              title: {
-                field: "title",
-                font: "DejaVuSansCondensed",
-                color: "white",
-                size: 48,
-                style: "bold",
-                x: null,
-                y: null,
-              },
-              meta: {
-                parts: ["María José Salmerón"],
-                font: "DejaVuSansCondensed",
-                color: "white",
-                size: 24,
-                style: "normal",
-                x: null,
-                y: null,
-              },
-              background: "#CC4C33",
-              xMargin: 24,
-              yMargin: 24,
-            },
-          },
-        ],
-        remarkPlugins: [remarkSlug],
       },
     },
     `gatsby-plugin-robots-txt`,
