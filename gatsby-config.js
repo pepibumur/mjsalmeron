@@ -94,5 +94,13 @@ module.exports = {
       },
     },
     `gatsby-plugin-robots-txt`,
+    {
+      resolve: `gatsby-source-ghost`,
+      options: {
+        apiUrl: `https://ghost.mjsalmeron.com`,
+        contentApiKey: `6fcd73a4825a5b7c32289533ed`,
+        version: `v3`,
+      },
+    },
   ],
 }
