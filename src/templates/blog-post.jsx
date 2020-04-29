@@ -54,34 +54,34 @@ const Footer = ({ pageContext }) => {
 
 const BlogPostPage = ({
   data: {
-    mdx: post,
+    ghostPost: post,
     site: { siteMetadata },
   },
   pageContext,
 }) => {
-  const publishedDateString = moment(post.fields.date).format("MMMM Do YYYY")
+  const publishedDateString = moment(post.published_at).format("MMMM Do YYYY")
 
   return (
     <Layout>
       <GatsbySeo
-        title={post.frontmatter.title}
+        title={post.title}
         titleTemplate="%s | María José Salmerón"
-        keywords={post.frontmatter.tags}
+        keywords={post.tags.map(tag => tag.name)}
         description={post.excerpt}
-        image={`${siteMetadata.siteUrl}${post.fields.slug}twitter-card.jpg`}
+        image={`${siteMetadata.siteUrl}${post.slug}twitter-card.jpg`}
         openGraph={{
-          title: post.frontmatter.title,
+          title: post.title,
           description: post.excerpt,
-          url: `${siteMetadata}${post.fields.slug}`,
+          url: `${siteMetadata}${post.slug}`,
           type: "article",
           article: {
-            publishedTime: moment(post.fields.date).format(),
-            authors: [`${siteMetadata}${post.fields.slug}/about`],
-            tags: post.frontmatter.tags,
+            publishedTime: moment(post.published_at).format(),
+            authors: [`${siteMetadata}/about`],
+            tags: post.tags.map(tag => tag.name),
           },
           images: [
             {
-              url: `${siteMetadata.siteUrl}${post.fields.slug}twitter-card.jpg`,
+              url: `${siteMetadata.siteUrl}${post.slug}twitter-card.jpg`,
               width: 850,
               height: 650,
             },
@@ -89,32 +89,32 @@ const BlogPostPage = ({
         }}
       />
       <BlogPostJsonLd
-        url={`${siteMetadata.siteUrl}${post.fields.slug}`}
-        title={post.frontmatter.title}
-        images={[`${siteMetadata.siteUrl}${post.fields.slug}twitter-card.jpg`]}
-        datePublished={moment(post.fields.date).format()}
+        url={`${siteMetadata.siteUrl}${post.slug}`}
+        title={post.title}
+        images={[`${siteMetadata.siteUrl}${post.slug}twitter-card.jpg`]}
+        datePublished={moment(post.published_at).format()}
         authorName={siteMetadata.title}
         description={siteMetadata.description}
       />
       <article>
         <header>
-          <Styled.h1>{post.frontmatter.title}</Styled.h1>
+          <Styled.h1>{post.title}</Styled.h1>
 
           <Styled.div sx={{ fontSize: 2, color: "gray" }}>
             Published on {publishedDateString} {` · `}
-            {post.frontmatter.tags.map((tag, index) => (
+            {post.tags.map((tag, index) => (
               <span
                 key={index}
                 sx={{
                   mr: 2,
                 }}
               >
-                {`#${tag}`}
+                {`#${tag.name}`}
               </span>
             ))}
           </Styled.div>
         </header>
-        <MDXRenderer>{post.body}</MDXRenderer>
+        <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <Footer pageContext={pageContext} />
       </article>
     </Layout>
@@ -132,16 +132,14 @@ export const query = graphql`
         description
       }
     }
-    mdx(fields: { slug: { eq: $slug } }) {
-      fields {
-        slug
-        date
-      }
-      body
+    ghostPost(slug: { eq: $slug }) {
+      slug
+      published_at
+      html
+      title
       excerpt
-      frontmatter {
-        title
-        tags
+      tags {
+        name
       }
     }
   }
